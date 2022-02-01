@@ -1,0 +1,165 @@
+#A list of all the screens in the code.
+WindowManager:
+    WelcomeScreen:
+    SettingsScreen:
+    PINPad:
+
+<WelcomeScreen>:
+#This is used to identify the window when switching between it.
+    name:"WelcomeScreen"
+    #Uses 2 grid layout which puts the next on the top and two buttons on the next line.
+    GridLayout:
+        cols:1
+
+        Label:
+            #Adjust text size according to screen dimensions.
+            text_size:self.size
+            valign: "middle"
+            halign: "center"
+            text: "For web access:IP Address \n Please click on settings to set your PIN and link your Google Account. \n Once activated, you have 30 seconds to clear the frame and 30 seconds to deactivate the alarm."
+
+
+        GridLayout:
+            cols:2
+
+        #Sets the text and sets it as a button which is precompiled within the Kivy library.
+            Button:
+                font_size: 30
+                text:"Launch Screen"
+                #When the button is clicked it will go to the corresponding class by looking for the right name.
+                on_release:
+                    #Tell user how to use PIN Pad.
+                    root.selection()
+                    app.root.current = "PINPad"
+
+
+            Button:
+                font_size: 30
+                text: "Settings Screen"
+                on_release:
+                    app.root.current = "SettingsScreen"
+
+
+#Creates the settings screen GUI.
+<SettingsScreen>:
+    name: "SettingsScreen"
+    GridLayout:
+        cols: 1
+
+#Creates a button which will redirect the user to the drive setup.
+        Button:
+        #Create a method that will use a function in an external file.
+            text:"Google Drive Setup"
+            on_release:
+                root.divert_to_drive_login()
+
+#Creates a button which transfers the user to the settings screen.
+        Button:
+            text:"PIN Selection"
+            on_release:
+                root.selection()
+                app.root.current = "PINPad"
+
+
+        Button:
+            text: "Back"
+            #Goes to the previous screen.
+            on_release:
+                app.root.current = "WelcomeScreen"
+
+<PINPad>:
+#Assigns a variable to the id display so the text that appears can be controlled using Object Property in the Python File.
+    name: "PINPad"
+    pin_display: pin_display
+    message_display: message_display
+    GridLayout:
+        cols: 1
+
+        Label:
+            id:pin_display
+            text_size:self.size
+            valign: "middle"
+            halign: "center"
+
+        Label:
+            id:message_display
+            text_size:self.size
+            valign: "middle"
+            halign: "center"
+
+
+        GridLayout:
+            cols:3
+
+#Creates all the buttons that form the keypad.
+            Button:
+                text: "1"
+                #Puts in the corresponding number as a parameter into the enter character method.
+                on_release:
+                    root.enter_character(1)
+
+            Button:
+                text: "2"
+                on_release:
+                    root.enter_character(2)
+
+            Button:
+                text: "3"
+                on_release:
+                    root.enter_character(3)
+
+            Button:
+                text: "4"
+                on_release:
+                    root.enter_character(4)
+
+            Button:
+                text: "5"
+                on_release:
+                    root.enter_character(5)
+
+            Button:
+                text: "6"
+                on_release:
+                    root.enter_character(6)
+
+            Button:
+                text: "7"
+                on_release:
+                    root.enter_character(7)
+
+            Button:
+                text: "8"
+                on_release:
+                    root.enter_character(8)
+
+            Button:
+                text: "9"
+                on_release:
+                    root.enter_character(9)
+
+            Button:
+                text: "<--"
+                #Runs the backspace method.
+                on_release:
+                    root.backspace()
+
+            Button:
+                text: "0"
+                on_release:
+                    root.enter_character(0)
+
+
+            Button:
+                text: "ENTER"
+                #Runs the enter method in the python file.
+                on_release:
+                    root.enter()
+
+            Button:
+                text: "Back"
+                #Goes to the previous screen.
+                on_release:
+                    root.back()
+
+
